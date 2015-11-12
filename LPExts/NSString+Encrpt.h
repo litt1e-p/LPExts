@@ -10,6 +10,14 @@
 
 @interface NSString (Encrpt)
 
-- (NSString *)MD5;
+- (NSData *)MD2Sum;
+- (NSData *)MD4Sum;
+- (NSData *)MD5Sum;
+
+- (NSData *)SHA1Hash;
+- (NSData *)SHA224Hash;
+- (NSData *)SHA256Hash;
+- (NSData *)SHA384Hash;
+- (NSData *)SHA512Hash;
 
 @end

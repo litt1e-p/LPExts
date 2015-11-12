@@ -11,7 +11,7 @@
 
 @implementation NSString (Encrpt)
 
-- (NSString *)MD5
+- (NSString *)md5Hash
 {
     const char *str = [self UTF8String];
     unsigned char result[CC_MD5_DIGEST_LENGTH];
@@ -25,3 +25,8 @@
 }
 
 @end
+
+
+NSAppTransportSecurity
+
+NSAllowsArbitraryLoads
