@@ -1,15 +1,15 @@
 //
-//  NSString+Encrpt.m
-//  DragonBallAvatar
+//  NSString+Encrypt.m
 //
 //  Created by litt1e-p on 15/11/2.
 //  Copyright © 2015年 litt1e-p. All rights reserved.
 //
 
-#import "NSString+Encrpt.h"
+#import "NSString+Encrypt.h"
 #import <CommonCrypto/CommonDigest.h>
+#import "GTMBase64.h"
 
-@implementation NSString (Encrpt)
+@implementation NSString (Encrypt)
 
 - (NSString *)md5Hash
 {
@@ -22,6 +22,17 @@
         [ret appendFormat:@"%02x",result[i]];
     }
     return ret;
+}
+
+- (NSString *)base64Encode
+{
+    NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
+    return [[NSString alloc] initWithData:[GTMBase64 encodeData:data] encoding:NSUTF8StringEncoding];
+}
+
+- (NSString *)base64Decode
+{
+    return [[NSString alloc] initWithData: [GTMBase64 decodeString:self] encoding:NSUTF8StringEncoding];
 }
 
 @end
