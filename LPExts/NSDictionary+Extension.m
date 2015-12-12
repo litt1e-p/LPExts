@@ -20,21 +20,28 @@
 
 - (NSDictionary *)sortWithComparisonType:(NSComparisonResult)comparisonType
 {
+    __block NSMutableArray *resultArr = [NSMutableArray array];
     if (comparisonType == NSOrderedSame) {
-        return self;
+        [self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+            NSMutableDictionary *tempDict = [NSMutableDictionary dictionary];
+            [tempDict setObject:obj forKey:key];
+            [resultArr addObject:tempDict];
+        }];
+        return resultArr;
     }
     NSArray *keys = [self allKeys];
-    NSArray *sortedArr = [keys sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+    NSArray *sortedArr = [keys sortedArrayUsingComparator:^NSComparisonResult(NSString * obj1, NSString * obj2) {
         return [obj1 compare:obj2 options:NSLiteralSearch|NSNumericSearch];
     }];
     if (comparisonType == NSOrderedDescending) {
         sortedArr = [[sortedArr reverseObjectEnumerator] allObjects];
     }
-    __block NSMutableDictionary *result = [NSMutableDictionary dictionary];
     [sortedArr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [result setObject:[self objectForKey:obj] forKey:obj];
+        NSMutableDictionary *tempResult = [NSMutableDictionary dictionary];
+        [tempResult setObject:[self objectForKey:obj] forKey:obj];
+        [resultArr addObject:tempResult];
     }];
-    return result;
+    return resultArr;
 }
 
 + (NSDictionary *)dictFromStr:(NSString *)str
