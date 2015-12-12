@@ -11,7 +11,7 @@
 
 #pragma mark - 
 - (NSString *)KVStr;
-- (NSDictionary *)sortWithComparisonType:(NSComparisonResult)comparisonType;
+- (NSArray *)sortWithComparisonType:(NSComparisonResult)comparisonType;
 + (NSDictionary *)dictFromStr:(NSString *)str;
 
 @end
