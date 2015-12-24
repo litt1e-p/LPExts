@@ -26,5 +26,12 @@ static char const kActionSheetCompletionKey;
     [self showInView:view];
 }
 
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    CompletionBlock completionBlock = objc_getAssociatedObject(self, &kActionSheetCompletionKey);
+    if (completionBlock) {
+        completionBlock(buttonIndex);
+    }
+}
 
 @end
