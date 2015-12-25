@@ -18,6 +18,28 @@
     return kvStr;
 }
 
+- (NSString *)KVUrlParamStrWithComparison:(NSComparisonResult)comparisonType
+{
+    __block NSString *kvUrlParamStr = @"?";
+    if ([self allKeys].count > 0) {
+        NSString *firstKvParamFormat = @"%@=%@";
+        NSString *generalKvParamFormat = @"&%@=%@";
+        NSArray *sortArr = [self sortWithComparisonType:comparisonType];
+        [sortArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSDictionary *tempDict = obj;
+            [tempDict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull dKey, id  _Nonnull dObj, BOOL * _Nonnull stop) {
+                NSString *format = idx == 0 ? firstKvParamFormat : generalKvParamFormat;
+                if ([dObj isKindOfClass:[NSString class]]) {
+                    kvUrlParamStr = [kvUrlParamStr stringByAppendingFormat:format, dKey, dObj];
+                } else if ([dObj isKindOfClass:[NSNumber class]]) {
+                    kvUrlParamStr = [kvUrlParamStr stringByAppendingFormat:format, dKey, dObj];
+                }
+            }];
+        }];
+    }
+    return kvUrlParamStr;
+}
+
 - (NSDictionary *)sortWithComparisonType:(NSComparisonResult)comparisonType
 {
     __block NSMutableArray *resultArr = [NSMutableArray array];
