@@ -11,6 +11,7 @@
 
 #pragma mark - 
 - (NSString *)KVStr;
+- (NSString *)KVUrlParamStrWithComparison:(NSComparisonResult)comparisonType;
 - (NSArray *)sortWithComparisonType:(NSComparisonResult)comparisonType;
 + (NSDictionary *)dictFromStr:(NSString *)str;
 
